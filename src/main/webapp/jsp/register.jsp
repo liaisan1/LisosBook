@@ -1,17 +1,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="pageTitle" value="Регистрация" scope="request"/>
-<jsp:include page="layout/header.jsp"/>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
+<head>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+</head>
+
+
+<body>
+<jsp:include page="/jsp/header.jsp" />
 <div class="auth-container">
     <div class="auth-form">
         <h2>Регистрация</h2>
 
-        <c:if test="${not empty error}">
             <div class="alert alert-error">
-                <c:out value="${error}"/>
             </div>
-        </c:if>
 
         <form action="${pageContext.request.contextPath}/auth/register" method="post">
             <div class="form-group">
@@ -40,5 +42,4 @@
         <p>Уже есть аккаунт? <a href="${pageContext.request.contextPath}/auth/login">Войдите</a></p>
     </div>
 </div>
-
-<jsp:include page="layout/footer.jsp"/>
+</body>

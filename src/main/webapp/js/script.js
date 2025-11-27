@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    console.log('✅ BookCollection JavaScript загружен и готов к работе!');
+    console.log('✅ LisosBook JavaScript загружен и готов к работе!');
 });
 
 /**

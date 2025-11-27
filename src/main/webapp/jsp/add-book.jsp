@@ -1,16 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="pageTitle" value="Добавить книгу" scope="request"/>
-<jsp:include page="layout/header.jsp"/>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
+
+
+<head>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+</head>
+<body>
+<jsp:include page="/jsp/header.jsp" />
 <div class="form-container">
     <h1>Добавить новую книгу</h1>
-
-    <c:if test="${not empty error}">
-        <div class="alert alert-error">
-            <c:out value="${error}"/>
-        </div>
-    </c:if>
 
     <form action="${pageContext.request.contextPath}/books/new" method="post" class="book-form">
         <div class="form-group">
@@ -44,5 +43,6 @@
         </div>
     </form>
 </div>
+</body>
 
-<jsp:include page="layout/footer.jsp"/>
+
