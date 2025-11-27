@@ -13,12 +13,12 @@
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <a href="${pageContext.request.contextPath}/books" class="nav-logo">📚 LisosBook</a>
+            <a href="${pageContext.request.contextPath}/book" class="nav-logo">📚 LisosBook</a>
             <div class="nav-menu">
                     <a href="${pageContext.request.contextPath}/main" class="nav-link">Главная страница</a>
-                    <a href="${pageContext.request.contextPath}/books" class="nav-link">Все книги</a>
+                    <a href="${pageContext.request.contextPath}/book" class="nav-link">Все книги</a>
                     <a href="${pageContext.request.contextPath}/collection" class="nav-link">Моя коллекция</a>
-                    <a href="${pageContext.request.contextPath}/auth/logout" class="nav-link">Выйти</a>
+                    <a href="${pageContext.request.contextPath}/logout" class="nav-link">Выйти</a>
             </div>
         </div>
     </nav>

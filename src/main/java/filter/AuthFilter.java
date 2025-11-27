@@ -43,6 +43,9 @@ public class AuthFilter extends HttpFilter {
 
         if (user == null) {
             response.sendRedirect(((HttpServletRequest) req).getContextPath() + "/register");
+            return;
         }
+
+        chain.doFilter(req,res);
     }
 }

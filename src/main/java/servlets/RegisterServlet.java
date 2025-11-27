@@ -1,22 +1,42 @@
 package servlets;
 
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import models.User;
+import services.UserService;
 import utils.HashUtil;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
+    private UserService userService;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        try {
+            this.userService = new UserService();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html;charset=UTF-8");
+
         req.getRequestDispatcher("/jsp/register.jsp").forward(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html;charset=UTF-8");
+
         String username = req.getParameter("username");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
@@ -36,7 +56,7 @@ public class RegisterServlet extends HttpServlet {
             error += "пароль не может быть пустым, пожалуйста попробуйте еще раз";
         }
 
-        if(confirmPassword.equals(password)) {
+        if(!confirmPassword.equals(password)) {
             error += "пароли не совпадают, пожалуйста попробуйте еще раз";
         }
 
@@ -50,11 +70,13 @@ public class RegisterServlet extends HttpServlet {
 
         User user = new User(username, email, hashPass);
 
-        HttpSession session = (HttpSession) req.getSession();
+        System.out.println("Создаем пользователя: " + username + ", хеш: " + hashPass);
 
-        Cookie cookie = new Cookie("loginUser", username);
-
-        resp.addCookie(cookie);
+        try {
+            userService.saveNewUser(user);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         resp.sendRedirect(req.getContextPath() + "/login");
     }

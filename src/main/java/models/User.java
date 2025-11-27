@@ -8,7 +8,14 @@ public class User {
     private String passwordHash;
     private String role;
 
-    public User(long id, String username, String email, String passwordHash, String role) {}
+    public User(long id, String username, String email, String passwordHash, String role) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.role = role;
+    }
+
 
     public User(String username, String email, String passwordHash) {
         this.username = username;
@@ -27,4 +34,11 @@ public class User {
     public void setEmail(String email) { this.email = email; }
     public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
     public void setRole(String role) {this.role = role;}
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                '}';
+    }
 }

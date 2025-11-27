@@ -2,13 +2,25 @@ package dao;
 
 import models.Book;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class BookDAO {
-    private Connection connection;
+    Connection connection;
+
+    public Connection getConnection() throws SQLException, ClassNotFoundException {
+        Class.forName("org.postgresql.Driver");
+        Connection connection = DriverManager.getConnection(
+                "jdbc:postgresql://localhost:5432/lisosbook",
+                "postgres",
+                "1234"
+        );
+        return connection;
+    }
+
+    public BookDAO() throws SQLException, ClassNotFoundException {
+        this.connection = getConnection();
+    }
+
     //получать кнгиу по Чему
     public void createBook(Book book) throws SQLException {
         String sqlScript = "insert into books (title, author, publicationYear, genre) values (?, ?, ?, ?)";
@@ -42,6 +54,8 @@ public class BookDAO {
                             rs.getInt("publicationYear"),
                             rs.getString("genre")
                     );
+
+                    return book;
                 }
             }
         }

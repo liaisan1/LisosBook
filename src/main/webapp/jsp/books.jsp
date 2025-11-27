@@ -8,11 +8,11 @@
 <jsp:include page="/jsp/header.jsp" />
 <div class="page-header">
     <h1>Каталог книг</h1>
-    <a href="${pageContext.request.contextPath}/books/new" class="btn btn-primary">Добавить книгу</a>
+    <a href="${pageContext.request.contextPath}/book/new" class="btn btn-primary">Добавить книгу</a>
 </div>
 
 <div class="search-section">
-    <form action="${pageContext.request.contextPath}/books/search" method="get" class="search-form">
+    <form action="${pageContext.request.contextPath}/book/search" method="get" class="search-form">
         <input type="text" name="q" placeholder="Поиск книг..." value="${searchQuery}">
         <button type="submit" class="btn btn-secondary">Найти</button>
     </form>
@@ -29,8 +29,8 @@
 
 
                 <div class="admin-actions">
-                    <a href="${pageContext.request.contextPath}/books/edit?id=${book.id}" class="btn btn-warning btn-small">Редактировать</a>
-                    <a href="${pageContext.request.contextPath}/books/delete?id=${book.id}"
+                    <a href="${pageContext.request.contextPath}/book/edit?id=${book.id}" class="btn btn-warning btn-small">Редактировать</a>
+                    <a href="${pageContext.request.contextPath}/book/delete?id=${book.id}"
                        class="btn btn-danger btn-small"
                        onclick="return confirm('Удалить эту книгу?')">Удалить</a>
                 </div>

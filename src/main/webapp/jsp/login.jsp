@@ -15,7 +15,7 @@
             <div class="alert alert-error">
             </div>
 
-        <form action="${pageContext.request.contextPath}/auth/login" method="post">
+        <form action="${pageContext.request.contextPath}/login" method="post">
             <div class="form-group">
                 <label for="username">Логин:</label>
                 <input type="text" id="username" name="username" required>

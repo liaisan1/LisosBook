@@ -39,7 +39,7 @@
             <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
         </form>
 
-        <p>Уже есть аккаунт? <a href="${pageContext.request.contextPath}/auth/login">Войдите</a></p>
+        <p>Уже есть аккаунт? <a href="${pageContext.request.contextPath}/login">Войдите</a></p>
     </div>
 </div>
 </body>
