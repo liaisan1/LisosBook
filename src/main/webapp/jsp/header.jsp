@@ -19,8 +19,6 @@
                     <a href="${pageContext.request.contextPath}/books" class="nav-link">Все книги</a>
                     <a href="${pageContext.request.contextPath}/collection" class="nav-link">Моя коллекция</a>
                     <a href="${pageContext.request.contextPath}/auth/logout" class="nav-link">Выйти</a>
-                    <a href="${pageContext.request.contextPath}/auth/login" class="nav-link">Вход</a>
-                    <a href="${pageContext.request.contextPath}/auth/register" class="nav-link">Регистрация</a>
             </div>
         </div>
     </nav>

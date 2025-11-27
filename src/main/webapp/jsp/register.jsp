@@ -15,7 +15,7 @@
             <div class="alert alert-error">
             </div>
 
-        <form action="${pageContext.request.contextPath}/auth/register" method="post">
+        <form action="${pageContext.request.contextPath}/register" method="post">
             <div class="form-group">
                 <label for="username">Логин:</label>
                 <input type="text" id="username" name="username" required>
