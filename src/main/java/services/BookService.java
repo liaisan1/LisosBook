@@ -19,8 +19,12 @@ public class BookService {
         System.out.println(book);
     }
 
-    public void deleteBook(Book book) throws SQLException {
-        bookDAO.deleteBook(book);
+    public void deleteBook(String title, String author) throws SQLException {
+        bookDAO.deleteBook(title, author);
+    }
+
+    public void updateBook(Book book) throws SQLException {
+        bookDAO.updateBook(book);
     }
 
     public void deleteBookByUser(long userId, long bookId) {

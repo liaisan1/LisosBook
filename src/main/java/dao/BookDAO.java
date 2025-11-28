@@ -35,12 +35,22 @@ public class BookDAO {
 
     }
 
-    public void deleteBook(Book book) throws SQLException {
-        String sqlScript = "DELETE FROM books WHERE id = ?";
-        try(PreparedStatement ps = connection.prepareStatement(sqlScript)) {
-            ps.setLong(1, book.getId());
-            ps.executeUpdate();
-        }
+    public void deleteBook(String title, String author) throws SQLException {
+        String sql = "delete from books where title=? and author=?";
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setString(1, title);
+        st.setString(2, author);
+        st.executeUpdate();
+    }
+
+    public void updateBook(Book book) throws SQLException {
+        String sql = "update books set publicationYear=?, genre=? where title=? and author=?";
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setInt(1, book.getPublicationYear());
+        st.setString(2, book.getGenre());
+        st.setString(3, book.getTitle());
+        st.setString(4, book.getAuthor());
+        st.executeUpdate();
     }
 
     public List<Book> getAllBook() throws SQLException {
@@ -59,7 +69,7 @@ public class BookDAO {
 
     public List<Book> searchBooks(String query) throws SQLException {
         List<Book> books = new ArrayList<>();
-        String sql = "SELECT * FROM books WHERE title ILIKE ? OR author ILIKE ?"; // ILIKE для регистронезависимого поиска
+        String sql = "SELECT * FROM books WHERE title ILIKE ? OR author ILIKE ?";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, "%" + query + "%");

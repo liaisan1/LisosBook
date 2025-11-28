@@ -33,6 +33,7 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
+
         String action = req.getParameter("action");
         String title = req.getParameter("title");
         String author = req.getParameter("author");
@@ -41,38 +42,50 @@ public class AdminServlet extends HttpServlet {
 
         String errorMessage = null;
 
-        if(action == null) {
-            errorMessage = "Не выбрано действие";
-            req.setAttribute("errorMessage", errorMessage);
-            req.getRequestDispatcher("/jsp/admin.jsp").forward(req,resp);
+        if (action == null) {
+            req.setAttribute("errorMessage", "Не выбрано действие");
+            req.getRequestDispatcher("/jsp/admin.jsp").forward(req, resp);
+            return;
         }
 
         try {
             switch (action) {
+
                 case "addBook":
-                    if(title != null && author!= null && publicationYear != null && genre != null) {
+                    if (title != null && author != null && publicationYear != null && genre != null) {
                         Book book = new Book(title, author, Integer.parseInt(publicationYear), genre);
                         bookService.addBook(book);
                     } else {
-                        errorMessage = "Поля должны быть заполнены";
+                        errorMessage = "Все поля должны быть заполнены";
                     }
                     break;
 
                 case "deleteBook":
-                    if(title != null) {
-                        Book book = new Book(title, author, Integer.parseInt(publicationYear), genre);
-                        bookService.deleteBook(book);
+                    if (title != null && author != null) {
+                        bookService.deleteBook(title, author);
                     } else {
-                        errorMessage = "Название книги не может быть пустым";
+                        errorMessage = "Для удаления нужно указать название и автора";
                     }
                     break;
+
+                case "updateBook":
+                    if (title != null && author != null && publicationYear != null && genre != null) {
+                        Book updated = new Book(title, author, Integer.parseInt(publicationYear), genre);
+                        bookService.updateBook(updated);
+                    } else {
+                        errorMessage = "Для изменения все поля должны быть заполнены";
+                    }
+                    break;
+
                 default:
                     errorMessage = "Неизвестное действие";
             }
-        }catch (Exception e) {
-            e.printStackTrace();
-            errorMessage = "Ошибка при выполнении действия:" + e.getMessage();
+        } catch (Exception e) {
+            errorMessage = "Ошибка: " + e.getMessage();
         }
 
+        req.setAttribute("errorMessage", errorMessage);
+        req.getRequestDispatcher("/jsp/admin.jsp").forward(req, resp);
     }
+
 }
