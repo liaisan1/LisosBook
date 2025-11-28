@@ -29,16 +29,29 @@ public class BookDAO {
             ps.setString(2, book.getAuthor());
             ps.setInt(3, book.getPublicationYear());
             ps.setString(4, book.getGenre());
+            ps.executeUpdate();
         }
 
     }
 
-    public void deleteBook(Book book) {
-
+    public void deleteBook(Book book) throws SQLException {
+        String sqlScript = "DELETE FROM books WHERE id = ?";
+        try(PreparedStatement ps = connection.prepareStatement(sqlScript)) {
+            ps.setLong(1, book.getId());
+            ps.executeUpdate();
+        }
     }
 
-    public void updateBook(String author, String title) {
-
+    public void updateBook(Book oldBook, Book newBook) throws SQLException {
+        String sqlScript = "UPDATE books SET title = ?, author = ?, publication_year = ?, genre = ? WHERE id = ?";
+        try(PreparedStatement ps = connection.prepareStatement(sqlScript)) {
+            ps.setString(1, newBook.getTitle());
+            ps.setString(2, newBook.getAuthor());
+            ps.setInt(3, newBook.getPublicationYear());
+            ps.setString(4, newBook.getGenre());
+            ps.setLong(5, oldBook.getId());
+            ps.executeUpdate();
+        }
     }
 
     public Book getBookByTitle(String title) throws SQLException {
