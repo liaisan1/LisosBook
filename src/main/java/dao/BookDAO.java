@@ -43,18 +43,6 @@ public class BookDAO {
         }
     }
 
-    public void updateBook(Book oldBook, Book newBook) throws SQLException {
-        String sqlScript = "UPDATE books SET title = ?, author = ?, publication_year = ?, genre = ? WHERE id = ?";
-        try(PreparedStatement ps = connection.prepareStatement(sqlScript)) {
-            ps.setString(1, newBook.getTitle());
-            ps.setString(2, newBook.getAuthor());
-            ps.setInt(3, newBook.getPublicationYear());
-            ps.setString(4, newBook.getGenre());
-            ps.setLong(5, oldBook.getId());
-            ps.executeUpdate();
-        }
-    }
-
     public List<Book> getAllBook() throws SQLException {
         List<Book> books = new ArrayList<>();
 
@@ -67,27 +55,6 @@ public class BookDAO {
             }
             return books;
         }
-    }
-
-    public Book getBookByTitle(String title) throws SQLException {
-        String sql = "select * from books where title = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, title);
-            try (ResultSet rs = statement.executeQuery()) {
-                if(rs.next()) {
-                    Book book = new Book(
-                            rs.getLong("id"),
-                            rs.getString("title"),
-                            rs.getString("author"),
-                            rs.getInt("publicationYear"),
-                            rs.getString("genre")
-                    );
-
-                    return book;
-                }
-            }
-        }
-        return null;
     }
 
     public List<Book> searchBooks(String query) throws SQLException {

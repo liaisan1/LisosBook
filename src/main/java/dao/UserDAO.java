@@ -95,22 +95,4 @@ public class UserDAO {
         }
 
     }
-
-    public void deleteUser(User user) throws SQLException {
-        String sqlScript = "DELETE FROM users WHERE username = ?";
-        try(PreparedStatement ps = connection.prepareStatement(sqlScript)) {
-            ps.setString(1, user.getUsername());
-            ps.executeUpdate();
-        }
-    }
-
-    public void updateUserRole(User user, String role) throws SQLException {
-        String sqlScript = "UPDATE users SET role = ? WHERE username = ?";
-        try(PreparedStatement ps = connection.prepareStatement(sqlScript)) {
-            ps.setString(1, role);
-            ps.setString(2, user.getUsername());
-            ps.executeUpdate();
-        }
-
-    }
 }

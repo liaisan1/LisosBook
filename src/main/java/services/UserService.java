@@ -19,10 +19,6 @@ public class UserService {
         return userDAO.userExixt(username);
     }
 
-    public User getUserByUsername(String username) throws SQLException {
-        return userDAO.getUserByUsername(username);
-    }
-
     public void saveNewUser(User user) throws SQLException {
         userDAO.createUser(user);
     }
