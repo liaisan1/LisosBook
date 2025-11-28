@@ -46,6 +46,11 @@ public class AuthFilter extends HttpFilter {
             return;
         }
 
+        if (path.equals("/admin") && !(user.getRole().equals("ADMIN"))) {
+            response.sendRedirect(request.getContextPath() + "/main");
+            return;
+        }
+
         chain.doFilter(req,res);
     }
 }

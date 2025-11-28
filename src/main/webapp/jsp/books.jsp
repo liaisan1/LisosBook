@@ -6,9 +6,9 @@
 </head>
 <body>
 <jsp:include page="/jsp/header.jsp" />
+
 <div class="page-header">
     <h1>Каталог книг</h1>
-    <a href="${pageContext.request.contextPath}/book/new" class="btn btn-primary">Добавить книгу</a>
 </div>
 
 <div class="search-section">
@@ -19,23 +19,20 @@
 </div>
 
 <div class="books-grid">
+    <c:forEach var="book" items="${list}">
         <div class="book-card">
-            <h3></h3>
-            <p class="book-author">Автор: </p>
-            <p class="book-details">
-            </p>
+            <h3>${book.title}</h3>
+            <p><strong>Автор:</strong> ${book.author}</p>
+            <p><strong>Год:</strong> ${book.publicationYear}</p>
+            <p><strong>Жанр:</strong> ${book.genre}</p>
 
             <div class="book-actions">
-
-
-                <div class="admin-actions">
-                    <a href="${pageContext.request.contextPath}/book/edit?id=${book.id}" class="btn btn-warning btn-small">Редактировать</a>
-                    <a href="${pageContext.request.contextPath}/book/delete?id=${book.id}"
-                       class="btn btn-danger btn-small"
-                       onclick="return confirm('Удалить эту книгу?')">Удалить</a>
-                </div>
+                <!-- Кнопка добавить в коллекцию -->
+                <a href="${pageContext.request.contextPath}/collection/add?bookId=${book.id}"
+                   class="btn btn-success btn-small">Добавить в мою коллекцию</a>
             </div>
         </div>
+    </c:forEach>
 </div>
-</body>
 
+</body>

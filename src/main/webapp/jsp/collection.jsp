@@ -15,14 +15,15 @@
 <div class="collection-grid">
         <div class="collection-card">
             <h3></h3>
-            <p class="book-author">Автор: </p>
-            <p class="book-details">
-                <strong>ISBN:</strong> <br>
-                <strong>Год:</strong> <br>
-                <strong>Жанр:</strong> <br>
-                <strong>Состояние:</strong> <br>
-                <strong>Добавлено:</strong> ${item.addedDate}
-            </p>
+<%--            <c:forEach var="book" items="${list}">--%>
+<%--            <p class="book-author">Автор: </p>--%>
+<%--            <p class="book-details">--%>
+<%--                <strong>Год:${book.publicationYear}</strong> <br>--%>
+<%--                <strong>Жанр:${book.genre}</strong> <br>--%>
+<%--                <strong>Автор:${book.}</strong> <br>--%>
+<%--                <strong>Название:${book.name}</strong>--%>
+<%--            </p>--%>
+<%--            </c:forEach>--%>
 
             <div class="collection-actions">
                 <a href="${pageContext.request.contextPath}/collection/remove?bookId=${item.bookId}"

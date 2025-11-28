@@ -3,6 +3,8 @@ package dao;
 import models.Book;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookDAO {
     Connection connection;
@@ -23,7 +25,7 @@ public class BookDAO {
 
     //получать кнгиу по Чему
     public void createBook(Book book) throws SQLException {
-        String sqlScript = "insert into books (title, author, publicationYear, genre) values (?, ?, ?, ?)";
+        String sqlScript = "insert into books (title, author, publication_year, genre) values (?, ?, ?, ?)";
         try(PreparedStatement ps = connection.prepareStatement(sqlScript)) {
             ps.setString(1, book.getTitle());
             ps.setString(2, book.getAuthor());
@@ -54,8 +56,27 @@ public class BookDAO {
         }
     }
 
+    public List<Book> getAllBook() throws SQLException {
+        List<Book> books = new ArrayList<>();
+
+        String sqlScript = "select * from books order by id";
+        try(PreparedStatement ps = connection.prepareStatement(sqlScript);ResultSet rs = ps.executeQuery()) {
+            while(rs.next()) {
+                Book book = new Book(rs.getLong("id"), rs.getString("title"), rs.getString("author"), rs.getInt("publication_year"), rs.getString("genre"));
+                book.setId(rs.getLong("id"));
+                book.setTitle(rs.getString("title"));
+                book.setAuthor(rs.getString("author"));
+                book.setPublicationYear(rs.getInt("publication_year"));
+                book.setGenre(rs.getString("genre"));
+
+                books.add(book);
+            }
+            return books;
+        }
+    }
+
     public Book getBookByTitle(String title) throws SQLException {
-        String sql = "select * from users where title = ?";
+        String sql = "select * from books where title = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, title);
             try (ResultSet rs = statement.executeQuery()) {
@@ -74,4 +95,29 @@ public class BookDAO {
         }
         return null;
     }
+
+    public List<Book> searchBooks(String query) throws SQLException {
+        List<Book> books = new ArrayList<>();
+        String sql = "SELECT * FROM books WHERE title ILIKE ? OR author ILIKE ?"; // ILIKE для регистронезависимого поиска
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, "%" + query + "%");
+            ps.setString(2, "%" + query + "%");
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Book book = new Book(rs.getLong("id"), rs.getString("title"), rs.getString("author"), rs.getInt("publication_year"), rs.getString("genre"));
+                    book.setId(rs.getLong("id"));
+                    book.setTitle(rs.getString("title"));
+                    book.setAuthor(rs.getString("author"));
+                    book.setPublicationYear(rs.getInt("publication_year"));
+                    book.setGenre(rs.getString("genre"));
+                    books.add(book);
+                }
+            }
+        }
+
+        return books;
+    }
+
 }
