@@ -24,9 +24,7 @@ public class UserService {
     }
 
     public void saveNewUser(User user) throws SQLException {
-        if(getUserByUsername(user.getUsername()) == null) {
-            userDAO.createUser(user);
-        }
+        userDAO.createUser(user);
     }
 
     public User authUser(String username, String pass) throws SQLException {

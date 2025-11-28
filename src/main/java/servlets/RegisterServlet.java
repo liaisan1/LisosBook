@@ -60,6 +60,13 @@ public class RegisterServlet extends HttpServlet {
             error += "пароли не совпадают, пожалуйста попробуйте еще раз";
         }
 
+        try {
+            if(userService.userExist(username)) {
+                error += "такой пользователь уже существует";
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         if (!error.isEmpty()) {
             resp.getWriter().write(error);

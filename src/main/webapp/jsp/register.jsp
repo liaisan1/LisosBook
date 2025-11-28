@@ -11,7 +11,7 @@
 <div class="auth-container">
     <div class="auth-form">
         <h2>Регистрация</h2>
-        <form action="${pageContext.request.contextPath}/register" method="post">
+        <form id="registerForm" action="${pageContext.request.contextPath}/register" method="post">
             <div class="form-group">
                 <label for="username">Логин:</label>
                 <input type="text" id="username" name="username" required>
