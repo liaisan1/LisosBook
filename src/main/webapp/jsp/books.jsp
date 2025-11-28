@@ -17,22 +17,21 @@
         <button type="submit" class="btn btn-secondary">Найти</button>
     </form>
 </div>
+    <div class="books-grid">
+        <c:forEach var="book" items="${list}">
+            <div class="book-card">
+                <h3>${book.title}</h3>
+                <p><strong>Автор:</strong> ${book.author}</p>
+                <p><strong>Год:</strong> ${book.publicationYear}</p>
+                <p><strong>Жанр:</strong> ${book.genre}</p>
 
-<div class="books-grid">
-    <c:forEach var="book" items="${list}">
-        <div class="book-card">
-            <h3>${book.title}</h3>
-            <p><strong>Автор:</strong> ${book.author}</p>
-            <p><strong>Год:</strong> ${book.publicationYear}</p>
-            <p><strong>Жанр:</strong> ${book.genre}</p>
-
-            <div class="book-actions">
-                <!-- Кнопка добавить в коллекцию -->
-                <a href="${pageContext.request.contextPath}/collection/add?bookId=${book.id}"
-                   class="btn btn-success btn-small">Добавить в мою коллекцию</a>
+                <form action="${pageContext.request.contextPath}/book" method="post">
+                    <input type="hidden" name="bookId" value="${book.id}">
+                    <button type="submit" class="btn btn-success btn-small">
+                        Добавить в мою коллекцию
+                    </button>
+                </form>
             </div>
-        </div>
-    </c:forEach>
-</div>
-
+        </c:forEach>
+    </div>
 </body>

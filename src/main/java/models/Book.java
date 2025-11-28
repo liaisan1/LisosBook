@@ -8,7 +8,13 @@ public class Book {
     private int publicationYear;
     private String genre;
 
-    public Book(long id, String title, String author, int publicationYear, String genre) {}
+    public Book(long id, String title, String author, int publicationYear, String genre) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.publicationYear = publicationYear;
+        this.genre = genre;
+    }
 
     public Book(String title, String author, int publicationYear, String genre) {
         this.title = title;

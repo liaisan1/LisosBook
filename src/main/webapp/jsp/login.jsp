@@ -11,10 +11,6 @@
 <div class="auth-container">
     <div class="auth-form">
         <h2>Вход в систему</h2>
-
-            <div class="alert alert-error">
-            </div>
-
         <form action="${pageContext.request.contextPath}/login" method="post">
             <div class="form-group">
                 <label for="username">Логин:</label>

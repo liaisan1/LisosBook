@@ -403,4 +403,104 @@ body {
 .btn-small {
     padding: 6px 10px;
 }
+/* Приветственный блок */
+.hero-landing {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #8A2BE2, #68159E);
+    color: white;
+    border-radius: 12px;
+    margin: 20px auto;
+    max-width: 900px;
+}
 
+.hero-landing h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+}
+
+.hero-landing p {
+    font-size: 1.4rem;
+    line-height: 1.5;
+}
+
+/* Вертикальные информационные блоки */
+.features-landing-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin: 50px auto;
+    max-width: 700px;
+}
+
+.feature-card-vertical {
+    color: white;
+    padding: 40px 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.feature-card-vertical h2 {
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+.feature-card-vertical p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Нижний вводный блок */
+.landing-footer {
+    text-align: center;
+    padding: 50px 20px;
+    font-size: 1.3rem;
+    color: #8A2BE2;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .hero-landing h1 {
+        font-size: 2rem;
+    }
+
+    .hero-landing p {
+        font-size: 1.1rem;
+    }
+
+    .feature-card-vertical h2 {
+        font-size: 1.5rem;
+    }
+
+    .feature-card-vertical p {
+        font-size: 1rem;
+    }
+}
+
+.books-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.book-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* кнопка внизу */
+    width: 220px;
+    padding: 15px;
+    border-radius: 8px;
+    background: #f4f4f4;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.book-card h3 {
+    margin-top: 0;
+}
+
+.book-actions {
+    margin-top: 10px;
+    text-align: center;
+}

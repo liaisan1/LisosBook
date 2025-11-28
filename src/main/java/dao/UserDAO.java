@@ -1,11 +1,16 @@
 package dao;
 
+import models.Book;
 import models.User;
+import services.BookService;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
     Connection connection;
+    BookService bookService;
 
     public Connection getConnection() throws SQLException, ClassNotFoundException {
         Class.forName("org.postgresql.Driver");
@@ -19,6 +24,7 @@ public class UserDAO {
 
     public UserDAO() throws SQLException, ClassNotFoundException {
         this.connection = getConnection();
+        this.bookService = new BookService(); //костыль)
     }
 
 
@@ -33,6 +39,26 @@ public class UserDAO {
             }
         }
     }
+    public List<Book> getBooksByUser(long userId) throws SQLException {
+        List<Book> books = new ArrayList<>();
+
+        String sql = "select * from user_books where user_id = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setLong(1, userId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    long bookId = rs.getLong("book_id");
+                    Book book = bookService.getBookById(bookId);
+                    books.add(book);
+                }
+            }
+        }
+
+        return books;
+    }
+
 
 
     public User getUserByUsername(String username) throws SQLException {

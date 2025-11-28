@@ -23,7 +23,6 @@ public class BookDAO {
         this.connection = getConnection();
     }
 
-    //получать кнгиу по Чему
     public void createBook(Book book) throws SQLException {
         String sqlScript = "insert into books (title, author, publication_year, genre) values (?, ?, ?, ?)";
         try(PreparedStatement ps = connection.prepareStatement(sqlScript)) {
@@ -63,11 +62,6 @@ public class BookDAO {
         try(PreparedStatement ps = connection.prepareStatement(sqlScript);ResultSet rs = ps.executeQuery()) {
             while(rs.next()) {
                 Book book = new Book(rs.getLong("id"), rs.getString("title"), rs.getString("author"), rs.getInt("publication_year"), rs.getString("genre"));
-                book.setId(rs.getLong("id"));
-                book.setTitle(rs.getString("title"));
-                book.setAuthor(rs.getString("author"));
-                book.setPublicationYear(rs.getInt("publication_year"));
-                book.setGenre(rs.getString("genre"));
 
                 books.add(book);
             }
@@ -107,17 +101,55 @@ public class BookDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Book book = new Book(rs.getLong("id"), rs.getString("title"), rs.getString("author"), rs.getInt("publication_year"), rs.getString("genre"));
-                    book.setId(rs.getLong("id"));
-                    book.setTitle(rs.getString("title"));
-                    book.setAuthor(rs.getString("author"));
-                    book.setPublicationYear(rs.getInt("publication_year"));
-                    book.setGenre(rs.getString("genre"));
                     books.add(book);
                 }
             }
         }
 
         return books;
+    }
+    public void setBookByUser(long userId, long bookId) throws SQLException {
+        List<Book> books = new ArrayList<>();
+        String sqlScript = "INSERT INTO user_books (user_id, book_id) VALUES (?, ?) ON CONFLICT (user_id, book_id) DO NOTHING";
+        try(PreparedStatement ps = connection.prepareStatement(sqlScript)) {
+            ps.setLong(1, userId);
+            ps.setLong(2, bookId);
+            ps.executeUpdate();
+        }
+
+    }
+
+    public void deleteBookByUser(long userId, long bookId) {
+        String sqlScript = "delete from user_books where user_id = ? and book_id = ?";
+
+        try(PreparedStatement ps = connection.prepareStatement(sqlScript)) {
+            ps.setLong(1, userId);
+            ps.setLong(2, bookId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Book getBookById(long id) throws SQLException {
+        String sql = "select * from books where id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, id);
+            try (ResultSet rs = statement.executeQuery()) {
+                if(rs.next()) {
+                    Book book = new Book(
+                            rs.getLong("id"),
+                            rs.getString("title"),
+                            rs.getString("author"),
+                            rs.getInt("publication_year"),
+                            rs.getString("genre")
+                    );
+
+                    return book;
+                }
+            }
+        }
+        return null;
     }
 
 }

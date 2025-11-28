@@ -1,5 +1,6 @@
 package servlets;
 
+import dao.BookDAO;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.Book;
+import models.User;
 import services.BookService;
 
 import java.io.IOException;
@@ -28,12 +30,30 @@ public class BookServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Book> list = null;
         try {
-            List<Book> list = bookService.getAllBook();
-            req.setAttribute("list", list);
+            list = bookService.getAllBook();
         } catch (SQLException e) {
-            throw new ServletException(e);
+            throw new RuntimeException(e);
         }
+        req.setAttribute("list", list);
         req.getRequestDispatcher("/jsp/books.jsp").forward(req,resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String bookId = req.getParameter("bookId");
+
+        User user = (User) req.getSession().getAttribute("user");
+
+        long userId = user.getId();
+
+        try {
+            bookService.setBookByUser(userId, Long.parseLong(bookId));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        resp.sendRedirect(req.getContextPath() + "/book");
     }
 }

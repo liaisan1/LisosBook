@@ -1,10 +1,12 @@
 package services;
 
 import dao.UserDAO;
+import models.Book;
 import models.User;
 import utils.HashUtil;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class UserService {
     private UserDAO userDAO;
@@ -35,5 +37,9 @@ public class UserService {
         }
 
         return null;
+    }
+
+    public List<Book> getBooksByUser(long id) throws SQLException{
+        return userDAO.getBooksByUser(id);
     }
 }

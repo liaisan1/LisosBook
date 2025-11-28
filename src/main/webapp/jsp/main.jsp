@@ -3,42 +3,39 @@
 
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-    <title>Главная</title>
+    <title>LisosBook — Главная</title>
 </head>
 
 <body>
 <jsp:include page="/jsp/header.jsp" />
 
-<div class="page-header">
+<!-- Большой приветственный блок -->
+<section class="hero-landing">
     <h1>Добро пожаловать в LisosBook</h1>
-    <p class="subtitle">Ваш личный каталог и коллекция книг</p>
-</div>
+    <p>Простая и удобная платформа для хранения ваших любимых книг и создания личного каталога.</p>
+</section>
 
-<div class="main-actions">
-    <a href="${pageContext.request.contextPath}/books" class="btn btn-primary btn-large">
-        Перейти к каталогу книг
-    </a>
-
-    <a href="${pageContext.request.contextPath}/collection" class="btn btn-secondary btn-large">
-        Моя коллекция
-    </a>
-</div>
-
-<div class="info-section">
-    <div class="info-card">
+<!-- Вертикальные информационные блоки -->
+<section class="features-landing-vertical">
+    <div class="feature-card-vertical" style="background-color: #8A2BE2;">
         <h2>Добавляйте книги</h2>
-        <p>Создавайте собственный каталог, добавляйте новые книги и управляйте ими.</p>
+        <p>Сохраняйте информацию о книгах, которые вам нравятся, в одном месте.</p>
     </div>
 
-    <div class="info-card">
-        <h2>Ищите и сортируйте</h2>
-        <p>Удобный поиск поможет быстро находить нужные книги.</p>
+    <div class="feature-card-vertical" style="background-color: #6A1FB5;">
+        <h2>Ищите книги</h2>
+        <p>Находите книги по названию или автору быстро и без лишних усилий.</p>
     </div>
 
-    <div class="info-card">
-        <h2>Управляйте коллекцией</h2>
-        <p>Отмечайте книги как добавленные в личную коллекцию с указанием состояния.</p>
+    <div class="feature-card-vertical" style="background-color: #4C0F8A;">
+        <h2>Храните свои коллекции</h2>
+        <p>Создавайте свои списки и держите любимые книги под рукой.</p>
     </div>
-</div>
+</section>
+
+<!-- Вводная секция -->
+<section class="landing-footer">
+    <p>LisosBook — просто и удобно храните ваши книги!</p>
+</section>
 
 </body>

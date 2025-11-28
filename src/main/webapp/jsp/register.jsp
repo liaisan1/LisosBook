@@ -11,10 +11,6 @@
 <div class="auth-container">
     <div class="auth-form">
         <h2>Регистрация</h2>
-
-            <div class="alert alert-error">
-            </div>
-
         <form action="${pageContext.request.contextPath}/register" method="post">
             <div class="form-group">
                 <label for="username">Логин:</label>
