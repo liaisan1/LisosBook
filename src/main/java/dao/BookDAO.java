@@ -44,7 +44,7 @@ public class BookDAO {
     }
 
     public void updateBook(Book book) throws SQLException {
-        String sql = "update books set publicationYear=?, genre=? where title=? and author=?";
+        String sql = "update books set publication_year=?, genre=? where title=? and author=?";
         PreparedStatement st = connection.prepareStatement(sql);
         st.setInt(1, book.getPublicationYear());
         st.setString(2, book.getGenre());
@@ -86,7 +86,6 @@ public class BookDAO {
         return books;
     }
     public void setBookByUser(long userId, long bookId) throws SQLException {
-        List<Book> books = new ArrayList<>();
         String sqlScript = "INSERT INTO user_books (user_id, book_id) VALUES (?, ?) ON CONFLICT (user_id, book_id) DO NOTHING";
         try(PreparedStatement ps = connection.prepareStatement(sqlScript)) {
             ps.setLong(1, userId);

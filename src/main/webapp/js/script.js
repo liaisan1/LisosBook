@@ -1,4 +1,3 @@
-// Ждем загрузки DOM
 document.addEventListener('DOMContentLoaded', function() {
 
     const form = document.querySelector('form#registerForm');

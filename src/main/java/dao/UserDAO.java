@@ -28,7 +28,6 @@ public class UserDAO {
     }
 
 
-    //Проверка на существование юзера
     public boolean userExixt(String username) throws SQLException {
         String sql = "select 1 from users where username = ?";
 
